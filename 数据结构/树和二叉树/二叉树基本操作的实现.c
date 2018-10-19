@@ -133,6 +133,28 @@ int LeafCount(BiTree T)
         return LeafCount(T->lchild)+LeafCount(T->rchild);
 }
 
+/*统计二叉树中度为1的结点的个数*/
+int NodeCount_1(BiTree T)
+{
+    if(T==NULL)
+        return 0;
+    else if((T->lchild!=NULL&&T->rchild==NULL)||(T->lchild==NULL&&T->rchild!=NULL))
+        return NodeCount_1(T->lchild)+NodeCount_1(T->rchild)+1;
+    else
+        return NodeCount_1(T->lchild)+NodeCount_1(T->rchild);
+}
+
+/*统计二叉树中度为2的结点的个数*/
+int NodeCount_2(BiTree T)
+{
+    if(T==NULL)
+        return 0;
+    else if((T->lchild!=NULL)&&(T->rchild!=NULL))
+        return NodeCount_2(T->lchild)+NodeCount_2(T->rchild)+1;
+    else
+        return NodeCount_2(T->lchild)+NodeCount_2(T->rchild);
+}
+
 /*主程序*/
 void main()
 {
@@ -173,6 +195,12 @@ void main()
 
         printf("该二叉树的叶子结点个数为：");
         printf("%d\n",LeafCount(T));
+
+        printf("该二叉树的度为1的结点个数为：");
+        printf("%d\n",NodeCount_1(T));
+
+        printf("该二叉树的度为2的结点个数为：");
+        printf("%d\n",NodeCount_2(T));
 
     }
     else
