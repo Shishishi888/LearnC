@@ -115,6 +115,18 @@ void CreateList_R(LinkList *L, int n)
     }
 }
 
+/*单链表的遍历*/
+void ListTraverse(LinkList L)
+{
+    if(!L) exit(0);
+    LNode *p=L->next;
+    while(p)
+    {
+        printf("%3d", p->data);
+        p=p->next;
+    }
+}
+
 /*销毁单链表*/
 int DestroyList_L(LinkList *L)
 {
