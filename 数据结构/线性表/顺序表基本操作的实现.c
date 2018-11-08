@@ -19,7 +19,43 @@ int InitList(SqList *L)
     if(!L->elem)
         exit(0);
     L->length=0;
+    L->list_size=MAXSIZE;
     return OK;
+}
+
+/*创建顺序表*/
+void CreateList(SqList *L)
+{
+    if(!L->elem)
+        exit(0);
+    for(int i=0; i<L->list_size; i++)
+    {
+        int e;
+        scanf("%d", &e);
+
+        if(e==-1)
+            break;
+
+        L->elem[i]=e;
+        L->length++;
+    }
+}
+
+/*顺序表的遍历*/
+void ListTraverse(SqList L)
+{
+    if(!L.elem) exit(0);
+
+    for(int i=0; i<L.length; i++)
+        printf("%3d", L.elem[i]);
+
+    /*
+    for(int i=0; i<L.length; i++)
+    {
+        printf("%3d", *L.elem);
+        L.elem++;
+    }
+    */
 }
 
 /*顺序表的取值*/
