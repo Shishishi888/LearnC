@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <malloc.h>
 
+typedef int KeyType;
+typedef char InfoType[20];
+
 typedef struct
 {
-    int key;
-    char otherinfo[20];
+    KeyType key;
+    InfoType otherinfo;
 }ElemType;
 
 typedef struct BSTNode
@@ -14,7 +17,7 @@ typedef struct BSTNode
 }BSTNode, *BSTree;
 
 /*二叉排序树的非递归查找*/
-BSTree SearchBST(BSTree T, int key)
+BSTree SearchBST(BSTree T, KeyType key)
 {
     BSTNode *p=T;
     while(p)
@@ -31,7 +34,7 @@ BSTree SearchBST(BSTree T, int key)
 }
 
 /*二叉排序树的递归查找*/
-BSTree SearchBST_Re(BSTree T, int key)
+BSTree SearchBST_Re(BSTree T, KeyType key)
 {
     if((!T)||key==T->data.key)
         return T;
@@ -65,18 +68,18 @@ void CreatBST(BSTree *T)
     ElemType e;
     int i=1;
     printf("请输入排序二叉树的第%d个元素（关键字，信息）：",i);
-    scanf("%d,%s",&e.key,&e.otherinfo);
+    scanf("%d，%s",&e.key,&e.otherinfo);
     while(e.key!=-1)
     {
         InsertBST(T, e);
         i++;
         printf("请输入排序二叉树的第%d个元素（关键字，信息）：",i);
-        scanf("%d,%s",&e.key,&e.otherinfo);
+        scanf("%d，%s",&e.key,&e.otherinfo);
     }
 }
 
 /*二叉排序树的删除*/
-void DeleteBST(BSTree T, int key)
+void DeleteBST(BSTree T, KeyType key)
 {
     BSTNode *p=T;
     BSTNode *f=NULL;
@@ -132,7 +135,7 @@ void InOrderTraverse(BSTree T)
     if(T)
     {
         InOrderTraverse(T->lchild);
-        printf("%d,%s  ",T->data.key, T->data.otherinfo);
+        printf("%d，%s  ",T->data.key, T->data.otherinfo);
         InOrderTraverse(T->rchild);
     }
 }
@@ -147,27 +150,27 @@ void main()
     InOrderTraverse(BST);
     printf("\n");
 
-    int key;
+    KeyType key;
     BSTNode *SearchBST_Result;
     printf("请输入待查询的元素的关键字：");
     scanf("%d",&key);
     SearchBST_Result=SearchBST(BST, key);
-    printf("查询成功！非递归查询结果为（关键字，信息）：%d, %s",SearchBST_Result->data.key,SearchBST_Result->data.otherinfo);
+    printf("查询成功！非递归查询结果（关键字，信息）为：%d, %s",SearchBST_Result->data.key,SearchBST_Result->data.otherinfo);
     printf("\n");
     SearchBST_Result=SearchBST_Re(BST, key);
-    printf("查询成功！ 递归查询结果为（关键字，信息）：%d, %s",SearchBST_Result->data.key,SearchBST_Result->data.otherinfo);
+    printf("查询成功！ 递归查询结果（关键字，信息）为：%d, %s",SearchBST_Result->data.key,SearchBST_Result->data.otherinfo);
     printf("\n");
 
     ElemType e;
     printf("请输入待插入的元素（关键字，信息）：");
-    scanf("%d,%s",&e.key,&e.otherinfo);
+    scanf("%d，%s",&e.key, &e.otherinfo);
     InsertBST(&BST, e);
     printf("插入成功！插入之后的二叉排序树（关键字，信息）为：");
     InOrderTraverse(BST);
     printf("\n");
 
     printf("请输入待删除的元素的关键字：");
-    scanf("%d",&key);
+    scanf("%d", &key);
     DeleteBST(BST, key);
     printf("删除成功！删除之后的二叉排序树（关键字，信息）为：");
     InOrderTraverse(BST);
