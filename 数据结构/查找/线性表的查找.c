@@ -2,8 +2,6 @@
 #include <string.h>
 #include <malloc.h>
 #define MAXSIZE 100
-#define OK 1
-#define ERROR 0
 
 typedef int KeyType;
 typedef char InfoType[20];
@@ -28,7 +26,7 @@ void InitSSTable(SSTable *ST)
     ST->length=0;
 }
 
-/*线性表表的创建*/
+/*线性表的创建*/
 void CreatSSTable(SSTable *ST)
 {
     printf("请向线性表中插入元素（关键字，信息），当插入的元素的关键字为-1时，停止插入\n");
