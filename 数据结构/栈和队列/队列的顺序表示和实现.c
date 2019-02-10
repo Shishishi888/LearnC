@@ -22,9 +22,9 @@ int InitQueue(SqQueue *Q)
 }
 
 /*求循环队列的长度*/
-int QueueLength(SqQueue *Q)
+int QueueLength(SqQueue Q)
 {
-    return (Q->rear-Q->front+MAX)%MAX;
+    return (Q.rear-Q.front+MAX)%MAX;
 }
 
 /*循环队列的入队*/
@@ -42,14 +42,14 @@ int DeQueue(SqQueue *Q, int *e)
 {
     if(Q->front==Q->rear)
         return ERROR;
-    e=&(Q->base[Q->front]);
+    *e=Q->base[Q->front];
     Q->front=(Q->front+1)%MAX;
     return OK;
 }
 
 /*取循环列表的队头元素*/
-int GetHead(SqQueue *Q)
+int GetHead(SqQueue Q)
 {
-    if(Q->front!=Q->rear)
-        return Q->base[Q->front];
+    if(Q.front!=Q.rear)
+        return Q.base[Q.front];
 }
