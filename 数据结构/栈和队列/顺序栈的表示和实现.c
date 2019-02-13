@@ -1,66 +1,68 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#define MAX 100
+#define MAXSIZE 100
 #define OK 1
 #define ERROR 0
 
+typedef int SElemType;
+
 typedef struct
 {
-    int *base;     //栈底指针
-    int *top;      //栈顶指针
-    int stacksize; //栈可用的最大容量
+    SElemType *base;     //栈底指针
+    SElemType *top;      //栈顶指针
+    int stacksize; 		 //栈可用的最大容量
 }SqStack;
 
 /*顺序栈的初始化*/
 int InitStack(SqStack *S)
 {
-    S->base=(int *)malloc(sizeof(int)*MAX);
+    S->base=(SElemType *)malloc(sizeof(SElemType)*MAXSIZE);
     if(!(S->base))
         exit(0);
     S->top=S->base;
-    S->stacksize=MAX;
+    S->stacksize=MAXSIZE;
     return OK;
 }
 
 /*顺序栈的入栈*/
-int Push(SqStack *S, int e)
+int Push(SqStack *S, SElemType e)
 {
     if(S->top-S->base==S->stacksize)
         return ERROR;
-    *((S->top)++)=e;
+    *(S->top++)=e;
     return OK;
 }
 
 /*顺序栈的出栈*/
-int Pop(SqStack *S, int *e)
+int Pop(SqStack *S, SElemType *e)
 {
-    if(S->top=S->base)
+    if(S->top==S->base)
         return ERROR;
-    e=--(S->top);
+    *e=*(--S->top);
     return OK;
 }
 
 /*取栈顶元素*/
-int GetTop(SqStack *S)
+int GetTop(SqStack S)
 {
-    if(S->top!=S->base)
-        return *(S->top-1);
+    if(S.top!=S.base)
+        return *(S.top-1);
 }
 
 /*判断顺序栈是否为空*/
-bool StackEmpty(SqStack *S)
+bool StackEmpty(SqStack S)
 {
-    if(S->top==S->base)
+    if(S.top==S.base)
         return true;
     else
         return false;
 }
 
 /*求顺序栈的长度*/
-int StackLength(SqStack *S)
+int StackLength(SqStack S)
 {
-    return S->top-S->base;
+    return S.top-S.base;
 }
 
 /*清空顺序栈*/
@@ -83,11 +85,4 @@ int DestroyStack(SqStack *S)
     return OK;
 }
 
-
-
-
-
-
-
-
-
+void main(){}
