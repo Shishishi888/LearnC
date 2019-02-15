@@ -13,7 +13,7 @@ typedef struct
 {
     VerTexType vexs[MVNum];                                         //顶点表，假设顶点的数据类型为字符型
     ArcType arcs[MVNum][MVNum];                                     //邻接矩阵,假设边的权值类型为整形
-    int vexnum, arcnum;                                             //图的当前顶点数和边数
+    int vexnum, arcnum;                                             //网的当前顶点数和边数
 }AMGraph;
 
 /*采用邻接矩阵表示法创建有向网*/
@@ -87,7 +87,7 @@ void ShortestPath_DIJ(AMGraph G, int v0)                       		 //用Dijkstra算
     	int v;
         ArcType min=MaxInt;
         for(int w=0;w<n;++w)
-			if(!S[w]&&D[w]<min)                                		 //选择一条当前的最短路径，终点为v
+			if(!S[w]&&D[w]<=min)                                	 //选择一条当前的最短路径，终点为v
 			{
 				v=w;                                       			 //将v加入S
 				min=D[w];

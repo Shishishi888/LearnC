@@ -12,7 +12,7 @@ typedef struct
 {
     VerTexType vexs[MVNum];                                         //顶点表，假设顶点的数据类型为字符型
     ArcType arcs[MVNum][MVNum];                                     //邻接矩阵,假设边的权值类型为整形
-    int vexnum, arcnum;                                             //图的当前顶点数和边数
+    int vexnum, arcnum;                                             //网的当前顶点数和边数
 }AMGraph;
 
 /*采用邻接矩阵表示法创建无向网*/
@@ -54,8 +54,8 @@ int CreateUDN(AMGraph *G)
         scanf("%c, %c, %d", &v1, &v2, &w);                           //输入一条边依附的顶点及权值
         int i=LocateVex(*G, v1);                                     //确定v1和v2在G中的位置，即顶点数组的下标
         int j=LocateVex(*G, v2);
-        G->arcs[i][j]=w;                                             //边<v1,v2>的权值置为w
-        G->arcs[j][i]=G->arcs[i][j];                                 //置<v1,v2>的对称边<v2,v1>的权值为w
+        G->arcs[i][j]=w;                                             //边(v1,v2)的权值置为w
+        G->arcs[j][i]=G->arcs[i][j];                                 //置(v1,v2)的对称边（v2,v1）的权值为w
     }
     return OK;
 }
@@ -84,7 +84,7 @@ int Min(Closedge closedge, int vexnum)
     return j;
 }
 
-void MiniSpanTree_Prim(AMGraph G, VerTexType u)              				  //无向图G以邻接矩阵形式储存，从顶点u出发构造G的最小生成树T，输出T的各条边
+void MiniSpanTree_Prim(AMGraph G, VerTexType u)              				  //无向网G以邻接矩阵形式储存，从顶点u出发构造G的最小生成树T，输出T的各条边
 {
     int k=LocateVex(G, u);                                                    //k为顶点u的下标
     for(int j=0;j<G.vexnum;++j)                                               //对V-U的每一个顶点vj，初始化closedge[j]

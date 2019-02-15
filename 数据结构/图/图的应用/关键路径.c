@@ -26,7 +26,7 @@ typedef struct VNode                         //顶点信息
 typedef struct                               //邻接表
 {
     AdjList vertices;
-    int vexnum, arcnum;                      //图的当前顶点数和边数
+    int vexnum, arcnum;                      //网的当前顶点数和边数
 }ALGraph;
 
 /*采用邻接表表示法创建有向网*/
@@ -41,9 +41,9 @@ int LocateVex(ALGraph G, VerTexType vex)
 
 int CreateUDG(ALGraph *G)
 {
-	printf("请输出有向图的总顶点数：");     					     //输入总顶点数，总边数
+	printf("请输出有向网的总顶点数：");     					     //输入总顶点数，总边数
 	scanf("%d", &(G->vexnum));
-	printf("请输出有向图的总边数：");
+	printf("请输出有向网的总边数：");
     scanf("%d", &(G->arcnum));
 	printf("请依次输入各顶点的信息：\n");
 
@@ -140,7 +140,7 @@ void FindInDegree(ALGraph G, int indegree[])		//统计各顶点的入度的函数
 }
 
 int TopologicalSort(ALGraph G, int topo[])
-{ //有向图G采用邻接表储存结构
+{ //有向网G采用邻接表储存结构
   //若G无回路，则生成G的一个拓扑序列topo[]并返回OK，否则返回ERROR
 
 	FindInDegree(G, indegree);                  //求出各顶点的入度存入数组indegree中
@@ -167,7 +167,7 @@ int TopologicalSort(ALGraph G, int topo[])
 	}
 
 	if(m<G.vexnum)
-		return ERROR;							//该有向图有回路
+		return ERROR;							//该有向网有回路
 	else
 		return OK;
 }
@@ -178,7 +178,7 @@ ArcType vl[MVNum];								//记录事件vl的最早发生时间
 
 int CriticalPath(ALGraph G)
 { //G为邻接表储存的有向网，输出G的各项关键活动
-	if(!TopologicalSort(G, topo))				//调用拓扑排序算法，使拓扑序列保存在topo中，若调用失败哦，则存在
+	if(!TopologicalSort(G, topo))				//调用拓扑排序算法，使拓扑序列保存在topo中，若调用失败，则存在
 		return ERROR;							//有向环，返回ERROR
 	int n=G.vexnum;								//n为顶点个数
 	for(int i=0; i<n; i++)

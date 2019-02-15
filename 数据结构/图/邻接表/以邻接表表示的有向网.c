@@ -26,7 +26,7 @@ typedef struct VNode                         //顶点信息
 typedef struct                               //邻接表
 {
     AdjList vertices;
-    int vexnum, arcnum;                      //图的当前顶点数和边数
+    int vexnum, arcnum;                      //网的当前顶点数和边数
 }ALGraph;
 
 /*采用邻接表表示法创建有向网*/

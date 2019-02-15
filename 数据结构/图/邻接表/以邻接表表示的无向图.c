@@ -77,7 +77,6 @@ int CreateUDG(ALGraph *G)
     }
 }
 
-
 /*深度优先搜索遍历连通图*/
 bool visited[MVNum];
 void DFS_AL(ALGraph G, int v)

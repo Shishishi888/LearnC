@@ -26,9 +26,8 @@ typedef struct VNode                         //顶点信息
 typedef struct                               //邻接表
 {
     AdjList vertices;
-    int vexnum, arcnum;                      //图的当前顶点数和边数
+    int vexnum, arcnum;                      //网的当前顶点数和边数
 }ALGraph;
-
 
 /*采用邻接表表示法创建无向网*/
 int LocateVex(ALGraph G, VerTexType vex)
@@ -80,7 +79,6 @@ int CreateUDG(ALGraph *G)
         G->vertices[j].firstarc=p2;
     }
 }
-
 
 /*深度优先搜索遍历连通网*/
 bool visited[MVNum];

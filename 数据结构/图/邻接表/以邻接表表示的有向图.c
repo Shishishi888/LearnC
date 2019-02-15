@@ -58,7 +58,6 @@ int CreateUDG(ALGraph *G)
     }
 
     VerTexType v1, v2;
-    //ArcType w;
     printf("请依次输入每条边依附的顶点（起点A, 终点B）：\n");
     for(int k=0; k<G->arcnum; k++)           //输入各边，构造邻接表
     {
