@@ -8,8 +8,8 @@ typedef char InfoType[20];
 
 typedef struct
 {
-    KeyType key;                                    //¹Ø¼ü×ÖÓò
-    InfoType otherinfo;                             //ÆäËûÓò
+    KeyType key;                                    //å…³é”®å­—åŸŸ
+    InfoType otherinfo;                             //å…¶ä»–åŸŸ
 }ElemType;
 
 typedef struct
@@ -18,7 +18,7 @@ typedef struct
     int length;
 }SSTable;
 
-/*ÏßĞÔ±íµÄ³õÊ¼»¯*/
+/*çº¿æ€§è¡¨çš„åˆå§‹åŒ–*/
 void InitSSTable(SSTable *ST)
 {
     if(!ST) exit(0);
@@ -26,28 +26,28 @@ void InitSSTable(SSTable *ST)
     ST->length=0;
 }
 
-/*ÏßĞÔ±íµÄ´´½¨*/
+/*çº¿æ€§è¡¨çš„åˆ›å»º*/
 void CreatSSTable(SSTable *ST)
 {
-    printf("ÇëÏòÏßĞÔ±íÖĞ²åÈëÔªËØ£¨¹Ø¼ü×Ö£¬ĞÅÏ¢£©£¬µ±²åÈëµÄÔªËØµÄ¹Ø¼ü×ÖÎª-1Ê±£¬Í£Ö¹²åÈë\n");
+    printf("è¯·å‘çº¿æ€§è¡¨ä¸­æ’å…¥å…ƒç´ ï¼ˆå…³é”®å­—ï¼Œä¿¡æ¯ï¼‰ï¼Œå½“æ’å…¥çš„å…ƒç´ çš„å…³é”®å­—ä¸º-1æ—¶ï¼Œåœæ­¢æ’å…¥\n");
 
     int i=1;
-    printf("Çë²åÈëµÚ%d¸öÔªËØ£º", i);
+    printf("è¯·æ’å…¥ç¬¬%dä¸ªå…ƒç´ ï¼š", i);
     KeyType key;
     InfoType otherinfo;
-    scanf("%d£¬%s", &key, &otherinfo);
+    scanf("%dï¼Œ%s", &key, &otherinfo);
     while(key!=-1)
     {
         ST->R[i].key=key;
         strcpy(ST->R[i].otherinfo, otherinfo);
         ST->length++;
         i++;
-        printf("Çë²åÈëµÚ%d¸öÔªËØ£º", i);
-        scanf("%d£¬%s", &key, &otherinfo);
+        printf("è¯·æ’å…¥ç¬¬%dä¸ªå…ƒç´ ï¼š", i);
+        scanf("%dï¼Œ%s", &key, &otherinfo);
     }
 }
 
-/*Ë³Ğò²éÕÒ*/
+/*é¡ºåºæŸ¥æ‰¾*/
 int Search(SSTable *ST, KeyType key)
 {
     int i;
@@ -59,7 +59,7 @@ int Search(SSTable *ST, KeyType key)
     return 0;
 }
 
-/*ÉèÖÃ¼àÊÓÉÚµÄË³Ğò²éÕÒ*/
+/*è®¾ç½®ç›‘è§†å“¨çš„é¡ºåºæŸ¥æ‰¾*/
 int Search_Seq(SSTable *ST, KeyType key)
 {
     ST->R[0].key=key;
@@ -68,13 +68,13 @@ int Search_Seq(SSTable *ST, KeyType key)
     return i;
 }
 
-/*ÕÛ°ë²éÕÒ£¨·Çµİ¹éËã·¨£©*/
+/*æŠ˜åŠæŸ¥æ‰¾ï¼ˆéé€’å½’ç®—æ³•ï¼‰*/
 int Search_Bin(SSTable *ST, KeyType key)
 {
     int low=1;
     int high=ST->length;
     int mid;
-    while(low<=high)                                //µ±low=highÊ±£¬²éÕÒÇø¼ä»¹ÓĞ×îºóÒ»¸ö½áµã£¬»¹Òª½øÒ»²½±È½Ï
+    while(low<=high)                                //å½“low=highæ—¶ï¼ŒæŸ¥æ‰¾åŒºé—´è¿˜æœ‰æœ€åä¸€ä¸ªç»“ç‚¹ï¼Œè¿˜è¦è¿›ä¸€æ­¥æ¯”è¾ƒ
     {
         mid=(low+high)/2;
         if(key==ST->R[mid].key)
@@ -87,7 +87,7 @@ int Search_Bin(SSTable *ST, KeyType key)
     return 0;
 }
 
-/*ÕÛ°ë²éÕÒ£¨µİ¹éËã·¨£©*/
+/*æŠ˜åŠæŸ¥æ‰¾ï¼ˆé€’å½’ç®—æ³•ï¼‰*/
 int Search_Bin_Re(SSTable *ST, KeyType key, int low, int high)
 {
     if(low>high)
@@ -96,9 +96,9 @@ int Search_Bin_Re(SSTable *ST, KeyType key, int low, int high)
     if(key==ST->R[mid].key)
         return mid;
     else if(key<ST->R[mid].key)
-        Search_Bin_Re(ST, key, low, mid-1);
+        return Search_Bin_Re(ST, key, low, mid-1);
     else
-        Search_Bin_Re(ST, key, mid+1, high);
+        return Search_Bin_Re(ST, key, mid+1, high);
 
 }
 
@@ -106,35 +106,35 @@ void main()
 {
     SSTable ST_1;
     InitSSTable(&ST_1);
-    printf("´´½¨ÆÕÍ¨ÏßĞÔ±í£º\n");
+    printf("åˆ›å»ºæ™®é€šçº¿æ€§è¡¨ï¼š\n");
     CreatSSTable(&ST_1);
 
-    printf("ÏßĞÔ±íµÄ±éÀú½á¹û£¨¹Ø¼ü×Ö£¬ĞÅÏ¢£©Îª£º\n");
+    printf("çº¿æ€§è¡¨çš„éå†ç»“æœï¼ˆå…³é”®å­—ï¼Œä¿¡æ¯ï¼‰ä¸ºï¼š\n");
     for(int i=1; i<=ST_1.length;i++)
-        printf("%d£¬%s  ", ST_1.R[i].key, ST_1.R[i].otherinfo);
+        printf("%dï¼Œ%s  ", ST_1.R[i].key, ST_1.R[i].otherinfo);
     printf("\n");
-    printf("´ı²éÑ¯µÄÏßĞÔ±íµÄ³¤¶ÈÎª£º%d\n", ST_1.length);
+    printf("å¾…æŸ¥è¯¢çš„çº¿æ€§è¡¨çš„é•¿åº¦ä¸ºï¼š%d\n", ST_1.length);
 
-    printf("ÇëÊäÈë´ı²éÑ¯µÄÔªËØµÄ¹Ø¼ü×Ö£º");
+    printf("è¯·è¾“å…¥å¾…æŸ¥è¯¢çš„å…ƒç´ çš„å…³é”®å­—ï¼š");
     KeyType key;
     scanf("%d",&key);
-    printf("Ë³Ğò²éÕÒµÄ½á¹û£¨ÏßĞÔ±íÖĞµÄÎ»ÖÃ£¬¹Ø¼ü×Ö£¬ĞÅÏ¢£©Îª£º%d£¬%d£¬%s\n", Search(&ST_1, key), key, ST_1.R[Search(&ST_1, key)].otherinfo);
-    printf("ÉèÖÃ¼àÊÓÉÚµÄË³Ğò²éÕÒµÄ½á¹û£¨ÏßĞÔ±íÖĞµÄÎ»ÖÃ£¬¹Ø¼ü×Ö£¬ĞÅÏ¢£©Îª£º%d£¬%d£¬%s\n", Search_Seq(&ST_1, key), key, ST_1.R[Search_Seq(&ST_1, key)].otherinfo);
+    printf("é¡ºåºæŸ¥æ‰¾çš„ç»“æœï¼ˆçº¿æ€§è¡¨ä¸­çš„ä½ç½®ï¼Œå…³é”®å­—ï¼Œä¿¡æ¯ï¼‰ä¸ºï¼š%dï¼Œ%dï¼Œ%s\n", Search(&ST_1, key), key, ST_1.R[Search(&ST_1, key)].otherinfo);
+    printf("è®¾ç½®ç›‘è§†å“¨çš„é¡ºåºæŸ¥æ‰¾çš„ç»“æœï¼ˆçº¿æ€§è¡¨ä¸­çš„ä½ç½®ï¼Œå…³é”®å­—ï¼Œä¿¡æ¯ï¼‰ä¸ºï¼š%dï¼Œ%dï¼Œ%s\n", Search_Seq(&ST_1, key), key, ST_1.R[Search_Seq(&ST_1, key)].otherinfo);
     printf("\n");
 
     SSTable ST_2;
     InitSSTable(&ST_2);
-    printf("´´½¨ÓĞĞòÏßĞÔ±í£º\n");
+    printf("åˆ›å»ºæœ‰åºçº¿æ€§è¡¨ï¼š\n");
     CreatSSTable(&ST_2);
 
-    printf("ÏßĞÔ±íµÄ±éÀú½á¹ûÎª£º\n");
+    printf("çº¿æ€§è¡¨çš„éå†ç»“æœä¸ºï¼š\n");
     for(int i=1;i<=ST_2.length;i++)
-        printf("%d£¬%s  ", ST_2.R[i].key, ST_2.R[i].otherinfo);
+        printf("%dï¼Œ%s  ", ST_2.R[i].key, ST_2.R[i].otherinfo);
     printf("\n");
-    printf("´ı²éÑ¯µÄÏßĞÔ±íµÄ³¤¶ÈÎª£º%d\n", ST_2.length);
+    printf("å¾…æŸ¥è¯¢çš„çº¿æ€§è¡¨çš„é•¿åº¦ä¸ºï¼š%d\n", ST_2.length);
 
-    printf("ÇëÊäÈë´ı²éÑ¯µÄÔªËØµÄ¹Ø¼ü×Ö£º");
+    printf("è¯·è¾“å…¥å¾…æŸ¥è¯¢çš„å…ƒç´ çš„å…³é”®å­—ï¼š");
     scanf("%d", &key);
-    printf("ÕÛ°ë²éÕÒ£¨·Çµİ¹éËã·¨£©µÄ½á¹û£¨ÏßĞÔ±íÖĞµÄÎ»ÖÃ£¬¹Ø¼ü×Ö£¬ĞÅÏ¢£©Îª£º%d£¬%d£¬%s\n", Search_Bin(&ST_2, key), key, ST_2.R[Search_Bin(&ST_2, key)].otherinfo);
-    printf("ÕÛ°ë²éÕÒ£¨µİ¹éËã·¨£©µÄ½á¹û£¨ÏßĞÔ±íÖĞµÄÎ»ÖÃ£¬¹Ø¼ü×Ö£¬ĞÅÏ¢£©Îª£º%d£¬%d£¬%s\n", Search_Bin_Re(&ST_2, key, 1, ST_2.length), key, ST_2.R[Search_Bin_Re(&ST_2, key, 1, ST_2.length)].otherinfo);
+    printf("æŠ˜åŠæŸ¥æ‰¾ï¼ˆéé€’å½’ç®—æ³•ï¼‰çš„ç»“æœï¼ˆçº¿æ€§è¡¨ä¸­çš„ä½ç½®ï¼Œå…³é”®å­—ï¼Œä¿¡æ¯ï¼‰ä¸ºï¼š%dï¼Œ%dï¼Œ%s\n", Search_Bin(&ST_2, key), key, ST_2.R[Search_Bin(&ST_2, key)].otherinfo);
+    printf("æŠ˜åŠæŸ¥æ‰¾ï¼ˆé€’å½’ç®—æ³•ï¼‰çš„ç»“æœï¼ˆçº¿æ€§è¡¨ä¸­çš„ä½ç½®ï¼Œå…³é”®å­—ï¼Œä¿¡æ¯ï¼‰ä¸ºï¼š%dï¼Œ%dï¼Œ%s\n", Search_Bin_Re(&ST_2, key, 1, ST_2.length), key, ST_2.R[Search_Bin_Re(&ST_2, key, 1, ST_2.length)].otherinfo);
 }
